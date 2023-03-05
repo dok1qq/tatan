@@ -4,6 +4,9 @@ html, body {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
+
+  color: var(--color-font);
+  background: var(--color-background);
 }
 
 @font-face {
@@ -11,16 +14,48 @@ html, body {
   src: url("./assets/fonts/Inter/static/Inter-Medium.ttf") format("truetype");
 }
 
-:root {
-  font-family: "InterMedium", sans-serif;
-
-  color: white;
-  background-color: #242424;
-}
-
 #root {
   display: flex;
   width: 100%;
   justify-content: center;
   padding-top: 32px;
+}
+
+:root {
+  font-family: "InterMedium", sans-serif;
+
+  /* Base and Primary */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  --color-dark-300: #2C314D;
+  --color-dark-400: #292F4C;
+  --color-dark-500: #262B47;
+  --color-dark-600: #1E233D;
+  --color-dark-700: #171C33;
+  --color-dark-800: #14192B;
+  --color-dark-900: #121729;
+
+  --color-cool-25: #FAFAFC;
+  --color-cool-50: #F7F8FA;
+  --color-cool-100: #EFF1F5;
+  --color-cool-200: #DCDFEA;
+  --color-cool-300: #B9BFD4;
+  --color-cool-350: #9AA3C1;
+  --color-cool-400: #7C87AD;
+  --color-cool-500: #5B6894;
+  --color-cool-600: #4E5A80;
+  --color-cool-700: #404B70;
+  --color-cool-800: #30374F;
+  --color-cool-900: #111322;
+}
+
+body[data-theme='light'] {
+  --color-font: var(--color-cool-500);
+  --color-background: var(--color-cool-50);
+}
+
+body[data-theme='dark'] {
+  --color-font: var(--color-cool-300);
+  --color-background: var(--color-dark-900);
 }

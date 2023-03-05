@@ -9,8 +9,8 @@
   opacity: 0;
 }
 
-label {
-  /*height: 18px;*/
+.checkbox:checked + label {
+  text-decoration: line-through;
 }
 
 .checkbox + label::before {
