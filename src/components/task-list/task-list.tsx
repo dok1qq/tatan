@@ -1,12 +1,14 @@
-import { ITask } from '../../task';
+import './task-list.css';
+
 import Task from '../task/task';
+import { ITask } from '../../task';
 import { useTasksContext } from '../../tasks-context';
 
 function TaskList() {
   const { tasks, update, remove } = useTasksContext();
 
   return (
-    <ul>
+    <div className="task-list">
       {tasks.map((task: ITask) => {
         return (
           <Task
@@ -17,7 +19,7 @@ function TaskList() {
           />
         );
       })}
-    </ul>
+    </div>
   );
 }
 

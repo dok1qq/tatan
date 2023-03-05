@@ -1,4 +1,4 @@
-import './App.css'
+import './app.css';
 
 import TaskList from '../task-list/task-list';
 import TaskForm from '../task-form/task-form';
@@ -8,8 +8,10 @@ function App() {
   return (
     <div className="app">
       <TasksContextProvider>
-        <TaskList />
-        <TaskForm />
+        <div className="content">
+          <TaskList />
+          <TaskForm />
+        </div>
       </TasksContextProvider>
     </div>
   );

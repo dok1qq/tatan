@@ -1,5 +1,7 @@
+import './task.css';
+import { Checkbox } from '@ui-kit/checkbox';
+
 import { ITask } from '../../task';
-import Checkbox from '../checkbox/checkbox';
 
 interface TaskProps {
   task: ITask;
@@ -17,9 +19,13 @@ function Task({ task, onTaskChange, onTaskRemove }: TaskProps) {
   };
 
   return (
-    <div>
-      <Checkbox name={task.label} value={task.completed} onChange={onChangeChange} />
-      <span>{task.label}</span>
+    <div className="task">
+      <Checkbox
+        id={task.id}
+        value={task.completed}
+        label={task.label}
+        onChange={onChangeChange}
+      />
       <button type="button" onClick={() => onTaskRemove(task.id)}>x</button>
     </div>
   );

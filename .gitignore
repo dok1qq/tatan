@@ -23,4 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
+# Firebase
 fb-config.ts
+.firebase
+.firebaserc
