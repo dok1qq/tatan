@@ -1,6 +1,8 @@
-import { TaskService } from './task-service';
-import { createContext, PropsWithChildren, useCallback, useContext, useState } from 'react';
+import { createContext, PropsWithChildren, useContext } from 'react';
+
 import { ITask } from './task';
+import { useTasks } from './useTasks';
+import { TaskService } from './task-service';
 
 const service = new TaskService();
 
@@ -17,38 +19,13 @@ const TasksContext = createContext<ITasksContext>({
   remove: (id: string) => {},
 });
 
-interface TasksContextProviderProps {
-
-}
+interface TasksContextProviderProps {}
 
 export function TasksContextProvider({ children }: PropsWithChildren<TasksContextProviderProps>) {
-  const [tasks, setTasks] = useState([
-    {
-      id: '1',
-      label: 'first',
-      completed: false,
-    }
-  ]);
-
-  const add = (task: ITask) => {
-    setTasks([...tasks, task]);
-  };
-
-  const remove = (id: string) => {
-    setTasks(tasks.filter(t => t.id !== id));
-  };
-
-  const update = (task: ITask) => {
-    setTasks(tasks.map(t => t.id === task.id ? task : t));
-  };
+  const ctx = useTasks();
 
   return (
-    <TasksContext.Provider value={{
-      tasks,
-      add,
-      remove,
-      update,
-    }}>
+    <TasksContext.Provider value={ctx}>
       {children}
     </TasksContext.Provider>
   );

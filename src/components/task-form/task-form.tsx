@@ -1,17 +1,22 @@
-import { SyntheticEvent, useId, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
+
+import { GUID } from '../../guid';
 import { ITask } from '../../task';
 import { useTasksContext } from '../../tasks-context';
 
 function TaskForm() {
   const { add } = useTasksContext();
   const [label, setLabel] = useState('');
-  const taskId = useId();
 
   const onSubmitHandle = (e: SyntheticEvent) => {
     e.preventDefault();
 
+    if (label.length === 0) {
+      return;
+    }
+
     const task: ITask = {
-      id: taskId,
+      id: GUID.create(),
       label,
       completed: false,
     };

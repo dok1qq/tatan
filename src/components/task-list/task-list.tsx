@@ -2,18 +2,19 @@ import { ITask } from '../../task';
 import Task from '../task/task';
 import { useTasksContext } from '../../tasks-context';
 
-interface TaskListProps {
-  tasks: ITask[];
-}
-
 function TaskList() {
-  const { tasks, update } = useTasksContext();
+  const { tasks, update, remove } = useTasksContext();
 
   return (
     <ul>
       {tasks.map((task: ITask) => {
         return (
-          <Task key={task.id} task={task} onTaskChange={update} />
+          <Task
+            key={task.id}
+            task={task}
+            onTaskChange={update}
+            onTaskRemove={remove}
+          />
         );
       })}
     </ul>
