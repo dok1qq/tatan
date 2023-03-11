@@ -48,14 +48,30 @@ html, body {
   --color-cool-700: #404B70;
   --color-cool-800: #30374F;
   --color-cool-900: #111322;
+
+
+  --color-yellow-400: #FAC515;
+  --color-yellow-900: #713B12;
 }
 
 body[data-theme='light'] {
   --color-font: var(--color-cool-500);
   --color-background: var(--color-cool-50);
+  --color-background-alt: var(--color-white);
+  --color-divider: var(--color-cool-300);
+  --color-caret: var(--color-yellow-900);
+  --color-even: var(--color-white);
+  --color-odd: var(--color-cool-25);
+  /*--color-border: var(--color-cool-200);*/
 }
 
 body[data-theme='dark'] {
   --color-font: var(--color-cool-300);
   --color-background: var(--color-dark-900);
+  --color-background-alt: var(--color-dark-600);
+  --color-divider: var(--color-cool-600);
+  --color-caret: var(--color-yellow-400);
+  --color-even: var(--color-dark-600);
+  --color-odd: var(--color-dark-700);
+  /*--color-border: var();*/
 }

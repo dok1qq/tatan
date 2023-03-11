@@ -3,3 +3,43 @@
   justify-content: space-between;
   padding: 18px 24px;
 }
+
+.task:nth-child(even) {
+  background-color: var(--color-even);
+}
+
+.task:nth-child(odd) {
+  background-color: var(--color-odd);
+}
+
+.task:first-child {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.task:last-child {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.task > * + * {
+  margin-left: 12px;
+}
+
+.task-content {
+  display: flex;
+  flex: 1;
+}
+
+.task-label {
+  padding: 8px;
+  caret-color: var(--color-caret);
+}
+
+.task-label[data-task-completed="true"] {
+  text-decoration: line-through;
+}
+
+/*.task-label:focus {*/
+/*  outline: 1px solid var(--color-border);*/
+/*}*/

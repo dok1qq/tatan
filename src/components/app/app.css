@@ -1,6 +1,5 @@
 .app {
   display: flex;
-  flex-direction: column;
 
   width: 900px;
   max-width: 100%;
@@ -16,4 +15,8 @@
   padding-bottom: 30vh;
   padding-left: 96px;
   padding-right: 96px;
+}
+
+.content > * + * {
+  margin-top: 32px;
 }
