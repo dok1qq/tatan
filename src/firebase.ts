@@ -29,8 +29,8 @@ async function getTasks(): Promise<ITask[]> {
   return tasksSnapshot.docs.map(doc => {
     const data = doc.data();
 
-    console.assert(data.label, 'Could not find label in data object');
-    console.assert(data.completed, 'Could not find completed in data object');
+    console.assert('label' in data, 'Could not find label in data object');
+    console.assert('completed' in data, 'Could not find completed in data object');
 
     return {
       id: doc.id,

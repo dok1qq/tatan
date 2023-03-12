@@ -51,7 +51,7 @@ function Task({ task, onTaskChange, onTaskRemove }: TaskProps) {
           contentEditable
           onInput={e => setLabel(e.currentTarget.innerHTML)}
           data-task-completed={task.completed}
-          dangerouslySetInnerHTML={{ __html: task.label }}
+          dangerouslySetInnerHTML={{ __html: task.label}}
         />
       </div>
       <button type="button" onClick={() => onTaskRemove(task.id)}>x</button>
