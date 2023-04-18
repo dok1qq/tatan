@@ -1,4 +1,5 @@
 import { SyntheticEvent, useState } from 'react';
+import './task-form.css';
 
 import { GUID } from '../../guid';
 import { ITask } from '../../task';
@@ -25,9 +26,10 @@ function TaskForm() {
   };
 
   return (
-    <form onSubmit={onSubmitHandle}>
+    <form className="task-form" onSubmit={onSubmitHandle}>
       <input
         type="text"
+        className="task-name"
         value={label}
         onChange={e => setLabel(e.target.value)}
       />
