@@ -2,7 +2,7 @@ import { SyntheticEvent, useState } from 'react';
 import './task-form.css';
 
 import { GUID } from '../../guid';
-import { ITask } from '../../task';
+import { ITask } from '../../models/task';
 import { useTasksContext } from '../../tasks-context';
 
 function TaskForm() {

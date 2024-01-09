@@ -6,6 +6,7 @@ import TaskForm from '../task-form/task-form';
 import { Header } from '../header/header';
 import { ThemeProvider } from '../../theme';
 import { TasksContextProvider } from '../../tasks-context';
+import { useCollections } from '../../hooks/useCollections';
 
 function App() {
   return (
@@ -23,4 +24,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

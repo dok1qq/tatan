@@ -2,7 +2,7 @@ import './task.css';
 import React, { useEffect, useState } from 'react';
 import { Checkbox } from '@ui-kit/checkbox';
 
-import { ITask } from '../../task';
+import { ITask } from '../../models/task';
 
 interface TaskProps {
   task: ITask;

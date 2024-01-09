@@ -1,19 +1,24 @@
 import fb from './firebase';
 
-import { ITask } from './task';
+import { ITask } from './models/task';
+import { ICollection } from './models/collection';
 
-export async function getTasks(): Promise<ITask[]> {
-  return await fb.getTasks();
-}
-
-export async function createTask(task: ITask): Promise<ITask> {
+export function createTask(task: ITask): Promise<ITask> {
   return fb.addTask(task);
 }
 
-export async function updateTask(task: ITask): Promise<void> {
+export function updateTask(task: ITask): Promise<void> {
   return fb.updateTask(task);
 }
 
-export async function deleteTask(id: string): Promise<void> {
+export function deleteTask(id: string): Promise<void> {
   return fb.deleteTask(id);
+}
+
+export function getCollections(): Promise<ICollection[]> {
+  return fb.getCollections();
+}
+
+export function getCollection(id: string): Promise<ITask[]> {
+  return fb.getCollection(id);
 }

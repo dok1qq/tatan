@@ -1,8 +1,8 @@
 import { createContext, PropsWithChildren, useContext } from 'react';
 
-import { ITask } from './task';
-import { useTasks } from './useTasks';
-import { TaskService } from './task-service';
+import { ITask } from './models/task';
+import { useTasks } from './hooks/useTasks';
+import { TaskService } from './models/task-service';
 
 const service = new TaskService();
 
@@ -11,13 +11,9 @@ interface ITasksContext {
   add(t: ITask): void;
   update(t: ITask): void;
   remove(id: string): void;
+  load(id: string): void;
 }
-const TasksContext = createContext<ITasksContext>({
-  tasks: [],
-  add: (t) => {},
-  update: (t) => {},
-  remove: (id: string) => {},
-});
+const TasksContext = createContext<ITasksContext | undefined>();
 
 interface TasksContextProviderProps {}
 
@@ -34,5 +30,10 @@ export function TasksContextProvider({ children }: PropsWithChildren<TasksContex
 
 export function useTasksContext() {
   const context = useContext(TasksContext);
+
+  if (!context) {
+    throw new Error(`TasksContext is not initialized`);
+  }
+
   return context;
 }
