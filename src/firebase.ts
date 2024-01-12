@@ -17,11 +17,18 @@ import { ICollection } from './models/collection';
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const tasksCollection = collection(db, 'tasks');
 const collectionsRef = collection(db, 'collections');
+
+function getCollectionRef(collectionId: string) {
+  return doc(db, 'collections', collectionId);
+}
 
 function getTaskRef(collectionId: string, taskId: string) {
   return doc(db, 'collections', collectionId, 'tasks', taskId);
+}
+
+function getTasksRef(collectionId: string) {
+  return collection(db, 'collections', collectionId, 'tasks');
 }
 
 async function getCollections(): Promise<ICollection[]> {
@@ -39,9 +46,9 @@ async function getCollections(): Promise<ICollection[]> {
 }
 
 async function getCollection(id: string): Promise<ITask[]> {
-  const tasksRef = collection(db, 'collections', id, 'tasks');
+  const collectionRef = getTasksRef(id);
 
-  const tasksSnapshot = await getDocs(tasksRef);
+  const tasksSnapshot = await getDocs(collectionRef);
   return tasksSnapshot.docs.map(doc => {
     const data = doc.data();
 
@@ -56,36 +63,46 @@ async function getCollection(id: string): Promise<ITask[]> {
   });
 }
 
-async function addTask(collectionId: string, task: ITask) {
-  const result = await addDoc(tasksCollection, {
-    label: task.label,
-    completed: task.completed,
-  });
-
+async function createCollection(name: string): Promise<ICollection> {
+  const result = await addDoc(collectionsRef, { name });
   const doc = await getDoc(result);
-  const data = doc.data();
 
-  if (data) {
-    return {
-      id: doc.id,
-      label: data.label,
-      completed: data.completed,
-    };
-  }
-
-  throw new Error(`Could not create new task`);
+  return {
+    id: doc.id,
+    name,
+  };
 }
 
-async function updateTask(task: ITask) {
-  const ref = getTaskRef(task.id);
-  await updateDoc(ref, {
+async function removeCollection(collectionId: string): Promise<void> {
+  const ref = getCollectionRef(collectionId);
+  return await deleteDoc(ref);
+}
+
+async function addTask(collectionId: string, label: string) {
+  const tasksRef = getTasksRef(collectionId);
+
+  const result = await addDoc(tasksRef, {
+    label,
+    completed: false,
+  });
+
+  return {
+    id: result.id,
+    label: label,
+    completed: false,
+  };
+}
+
+async function updateTask(collectionId: string, task: ITask) {
+  const ref = getTaskRef(collectionId, task.id);
+  await updateDoc<ITask>(ref, {
     label: task.label,
     completed: task.completed,
   });
 }
 
-async function deleteTask(id: string) {
-  const ref = getTaskRef(id);
+async function deleteTask(collectionId: string, id: string) {
+  const ref = getTaskRef(collectionId, id);
   await deleteDoc(ref);
 }
 
@@ -96,4 +113,6 @@ export default {
 
   getCollection,
   getCollections,
+  createCollection,
+  removeCollection,
 };

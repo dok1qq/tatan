@@ -1,25 +1,18 @@
 import './app.css';
-
-import TaskList from '../task-list/task-list';
-import TaskForm from '../task-form/task-form';
+import { Outlet } from 'react-router-dom';
 
 import { Header } from '../header/header';
-import { ThemeProvider } from '../../theme';
 import { TasksContextProvider } from '../../tasks-context';
-import { useCollections } from '../../hooks/useCollections';
 
-function App() {
+export  function App() {
   return (
     <div className="app">
-      <ThemeProvider>
+      <div className="content">
         <TasksContextProvider>
-          <div className="content">
-            <Header />
-            <TaskList />
-            <TaskForm />
-          </div>
+          <Header />
+          <Outlet />
         </TasksContextProvider>
-      </ThemeProvider>
+      </div>
     </div>
   );
 }

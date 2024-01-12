@@ -7,28 +7,40 @@ import {
   updateTask,
   getCollection,
 } from '../backend';
+import { ICollection } from '../models/collection';
 
 export function useTasks() {
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const [selected, setSelected] = useState<ICollection | undefined>();
 
   const load = async (collectionId: string) => {
     const tasks = await getCollection(collectionId);
     setTasks(tasks);
   };
 
-  const add = async (task: ITask) => {
-    const newTask = await createTask(task);
+  const add = async (label: string) => {
+    if (!selected) return;
+
+    const newTask = await createTask(selected.id, label);
     setTasks([...tasks, newTask]);
   };
 
   const remove = async (id: string) => {
-    await deleteTask(id);
+    if (!selected) return;
+
+    await deleteTask(selected.id, id);
     setTasks(tasks.filter(t => t.id !== id));
   };
 
   const update = async (task: ITask) => {
-    await updateTask(task);
+    if (!selected) return;
+
+    await updateTask(selected.id, task);
     setTasks(tasks.map(t => t.id === task.id ? task : t));
+  };
+
+  const selectCollection = (collection: ICollection) => {
+    setSelected(collection);
   };
 
   return {
@@ -37,5 +49,8 @@ export function useTasks() {
     remove,
     update,
     load,
+
+    selected,
+    selectCollection,
   };
 }

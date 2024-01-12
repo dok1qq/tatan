@@ -15,7 +15,7 @@ function Task({ task, onTaskChange, onTaskRemove }: TaskProps) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      onLabelChange(label);
+      // onLabelChange(label);
     }, 3000);
     return () => {
       clearTimeout(timer);

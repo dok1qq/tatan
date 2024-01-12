@@ -2,18 +2,19 @@ import { createContext, PropsWithChildren, useContext } from 'react';
 
 import { ITask } from './models/task';
 import { useTasks } from './hooks/useTasks';
-import { TaskService } from './models/task-service';
-
-const service = new TaskService();
+import { ICollection } from './models/collection';
 
 interface ITasksContext {
   tasks: ITask[];
-  add(t: ITask): void;
+  add(l: string): void;
   update(t: ITask): void;
   remove(id: string): void;
   load(id: string): void;
+
+  selected?: ICollection;
+  selectCollection(c: ICollection): void;
 }
-const TasksContext = createContext<ITasksContext | undefined>();
+const TasksContext = createContext<ITasksContext | undefined>(undefined);
 
 interface TasksContextProviderProps {}
 

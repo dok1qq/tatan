@@ -4,7 +4,7 @@ import Task from '../task/task';
 import { ITask } from '../../models/task';
 import { useTasksContext } from '../../tasks-context';
 
-function TaskList() {
+export function TaskList() {
   const { tasks, update, remove } = useTasksContext();
 
   return (
@@ -22,5 +22,3 @@ function TaskList() {
     </div>
   );
 }
-
-export default TaskList;

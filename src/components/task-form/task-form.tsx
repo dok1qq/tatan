@@ -1,11 +1,9 @@
 import { SyntheticEvent, useState } from 'react';
 import './task-form.css';
 
-import { GUID } from '../../guid';
-import { ITask } from '../../models/task';
 import { useTasksContext } from '../../tasks-context';
 
-function TaskForm() {
+export function TaskForm() {
   const { add } = useTasksContext();
   const [label, setLabel] = useState('');
 
@@ -16,12 +14,7 @@ function TaskForm() {
       return;
     }
 
-    const task: ITask = {
-      id: GUID.create(),
-      label,
-      completed: false,
-    };
-    add(task);
+    add(label);
     setLabel('');
   };
 
@@ -37,5 +30,3 @@ function TaskForm() {
     </form>
   )
 }
-
-export default TaskForm;
