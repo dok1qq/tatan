@@ -1,21 +1,22 @@
-import './task.css';
 import React, { useEffect, useState } from 'react';
 import { Checkbox } from '@ui-kit/checkbox';
 
 import { ITask } from '../../models/task';
+import { Form } from 'react-router-dom';
 
 interface TaskProps {
   task: ITask;
   onTaskChange(task: ITask): void;
-  onTaskRemove(id: string | number): void;
+  onTaskRemove(event: React.MouseEvent<HTMLButtonElement>): void;
 }
 
 function Task({ task, onTaskChange, onTaskRemove }: TaskProps) {
+
   const [label, setLabel] = useState(task.label);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // onLabelChange(label);
+      onLabelChange(label);
     }, 3000);
     return () => {
       clearTimeout(timer);
@@ -54,7 +55,16 @@ function Task({ task, onTaskChange, onTaskRemove }: TaskProps) {
           dangerouslySetInnerHTML={{ __html: task.label}}
         />
       </div>
-      <button type="button" onClick={() => onTaskRemove(task.id)}>x</button>
+      <Form>
+        <button
+          type="submit"
+          data-action="remove"
+          data-task-id={task.id}
+          onClick={onTaskRemove}
+        >
+          x
+        </button>
+      </Form>
     </div>
   );
 }

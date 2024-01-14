@@ -1,25 +1,23 @@
-import { createContext, PropsWithChildren, useContext } from 'react';
+import React, { createContext, PropsWithChildren, useContext } from 'react';
 
 import { ITask } from './models/task';
 import { useTasks } from './hooks/useTasks';
-import { ICollection } from './models/collection';
 
 interface ITasksContext {
   tasks: ITask[];
+  collectionId: string;
+
   add(l: string): void;
   update(t: ITask): void;
-  remove(id: string): void;
+  remove(event: React.MouseEvent<HTMLButtonElement>): void;
   load(id: string): void;
-
-  selected?: ICollection;
-  selectCollection(c: ICollection): void;
 }
 const TasksContext = createContext<ITasksContext | undefined>(undefined);
 
 interface TasksContextProviderProps {}
 
 export function TasksContextProvider({ children }: PropsWithChildren<TasksContextProviderProps>) {
-  const ctx = useTasks();
+  const ctx = useTasks() as ITasksContext;
 
   return (
     <TasksContext.Provider value={ctx}>

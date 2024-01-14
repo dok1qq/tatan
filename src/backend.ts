@@ -7,12 +7,14 @@ export function createTask(collectionId: string, label: string): Promise<ITask> 
   return fb.addTask(collectionId, label);
 }
 
-export function updateTask(collectionId: string, task: ITask): Promise<void> {
-  return fb.updateTask(collectionId, task);
+export async function updateTask(collectionId: string, task: ITask) {
+  await fb.updateTask(collectionId, task);
+  return null;
 }
 
-export function deleteTask(collectionId: string, taskId: string): Promise<void> {
-  return fb.deleteTask(collectionId, taskId);
+export async function deleteTask(collectionId: string, taskId: string) {
+  await fb.deleteTask(collectionId, taskId);
+  return null;
 }
 
 export function getCollections(): Promise<ICollection[]> {

@@ -95,7 +95,7 @@ async function addTask(collectionId: string, label: string) {
 
 async function updateTask(collectionId: string, task: ITask) {
   const ref = getTaskRef(collectionId, task.id);
-  await updateDoc<ITask>(ref, {
+  return await updateDoc<ITask>(ref, {
     label: task.label,
     completed: task.completed,
   });
@@ -103,7 +103,7 @@ async function updateTask(collectionId: string, task: ITask) {
 
 async function deleteTask(collectionId: string, id: string) {
   const ref = getTaskRef(collectionId, id);
-  await deleteDoc(ref);
+  return await deleteDoc(ref);
 }
 
 export default {

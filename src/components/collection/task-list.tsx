@@ -1,7 +1,5 @@
-import './task-list.css';
-
-import Task from '../task/task';
 import { ITask } from '../../models/task';
+import Task from './task';
 import { useTasksContext } from '../../tasks-context';
 
 export function TaskList() {

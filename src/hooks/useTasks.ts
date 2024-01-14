@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useLoaderData, useParams, useSubmit } from 'react-router-dom';
 
 import { ITask } from '../models/task';
 import {
@@ -10,47 +11,48 @@ import {
 import { ICollection } from '../models/collection';
 
 export function useTasks() {
-  const [tasks, setTasks] = useState<ITask[]>([]);
-  const [selected, setSelected] = useState<ICollection | undefined>();
+  const submit = useSubmit();
+  const tasks = useLoaderData() as ITask[];
+  const { id: collectionId } = useParams();
+
+  console.log(collectionId);
 
   const load = async (collectionId: string) => {
-    const tasks = await getCollection(collectionId);
-    setTasks(tasks);
+    // const tasks = await getCollection(collectionId);
+    // setTasks(tasks);
   };
 
   const add = async (label: string) => {
-    if (!selected) return;
-
-    const newTask = await createTask(selected.id, label);
-    setTasks([...tasks, newTask]);
+    // const newTask = await createTask(selected.id, label);
+    // setTasks([...tasks, newTask]);
   };
 
-  const remove = async (id: string) => {
-    if (!selected) return;
+  const remove = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    // event.preventDefault();
+    // event.stopPropagation();
+    // await deleteTask(selected.id, id);
+    // setTasks(tasks.filter(t => t.id !== id));
 
-    await deleteTask(selected.id, id);
-    setTasks(tasks.filter(t => t.id !== id));
+    submit(event.target as HTMLButtonElement, {
+      method: 'post',
+      action: `/collections/${collectionId}`,
+    });
   };
 
   const update = async (task: ITask) => {
-    if (!selected) return;
+    // await updateTask(selected.id, task);
+    // setTasks(tasks.map(t => t.id === task.id ? task : t));
 
-    await updateTask(selected.id, task);
-    setTasks(tasks.map(t => t.id === task.id ? task : t));
-  };
 
-  const selectCollection = (collection: ICollection) => {
-    setSelected(collection);
   };
 
   return {
     tasks,
+    collectionId,
+
     add,
     remove,
     update,
     load,
-
-    selected,
-    selectCollection,
   };
 }
