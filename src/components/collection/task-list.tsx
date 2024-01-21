@@ -1,10 +1,13 @@
 import { ITask } from '../../models/task';
 import Task from './task';
-import { useTasksContext } from '../../tasks-context';
 
-export function TaskList() {
-  const { tasks, update, remove } = useTasksContext();
+interface Props {
+  tasks: ITask[];
+  update(t: ITask): void;
+  remove(t: ITask): void;
+}
 
+export function TaskList({ tasks, update, remove }: Props) {
   return (
     <div className="task-list">
       {tasks.map((task: ITask) => {

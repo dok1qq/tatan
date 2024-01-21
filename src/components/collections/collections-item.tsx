@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 
 interface Props {
   collection: ICollection;
+  remove(collection: ICollection): void;
 }
 
-export function CollectionsItem({ collection }: Props) {
+export function CollectionsItem({ collection, remove }: Props) {
   return (
-    <li>
+    <div className="collections-item">
       <Link to={`/collections/${collection.id}`}>{collection.name}</Link>
-    </li>
+      <button onClick={() => remove(collection)}>x</button>
+    </div>
   );
 }

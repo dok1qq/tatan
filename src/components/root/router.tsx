@@ -1,18 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { App } from '../app/app';
-import {
-  Collection,
-  collectionAction,
-  collectionLoader,
-  collectionEdit,
-  collectionDelete,
-} from '../collection/collection';
-import {
-  Collections,
-  collectionsLoader,
-  collectionsAction,
-} from '../collections/collections';
+import { Collection } from '../collection/collection';
+import { Collections } from '../collections/collections';
+import { collectionLoader } from '../collection/useTasks';
+import { collectionsLoader } from '../collections/useCollections';
 
 export const router = createBrowserRouter([
   {
@@ -22,13 +14,11 @@ export const router = createBrowserRouter([
         path: '/',
         element: <Collections />,
         loader: collectionsLoader,
-        action: collectionsAction,
       },
       {
         path: '/collections/:id',
         element: <Collection />,
         loader: collectionLoader,
-        action: collectionAction,
       },
     ]
   }

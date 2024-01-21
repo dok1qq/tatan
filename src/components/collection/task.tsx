@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Checkbox } from '@ui-kit/checkbox';
 
 import { ITask } from '../../models/task';
@@ -7,22 +7,11 @@ import { Form } from 'react-router-dom';
 interface TaskProps {
   task: ITask;
   onTaskChange(task: ITask): void;
-  onTaskRemove(event: React.MouseEvent<HTMLButtonElement>): void;
+  onTaskRemove(task: ITask): void;
 }
 
 function Task({ task, onTaskChange, onTaskRemove }: TaskProps) {
-
   const [label, setLabel] = useState(task.label);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      onLabelChange(label);
-    }, 3000);
-    return () => {
-      clearTimeout(timer);
-    }
-  }, [label]);
-
 
   const onCheckboxChange = (value: boolean) => {
     onTaskChange({
@@ -38,6 +27,12 @@ function Task({ task, onTaskChange, onTaskRemove }: TaskProps) {
     });
   };
 
+  const onBlurHandler = () => {
+    if (label.length && label !== task.label) {
+      onLabelChange(label);
+    }
+  };
+
   return (
     <div className="task">
       <div className="task-content">
@@ -51,6 +46,7 @@ function Task({ task, onTaskChange, onTaskRemove }: TaskProps) {
           className="task-label"
           contentEditable
           onInput={e => setLabel(e.currentTarget.innerHTML)}
+          onBlur={onBlurHandler}
           data-task-completed={task.completed}
           dangerouslySetInnerHTML={{ __html: task.label}}
         />
@@ -59,8 +55,7 @@ function Task({ task, onTaskChange, onTaskRemove }: TaskProps) {
         <button
           type="submit"
           data-action="remove"
-          data-task-id={task.id}
-          onClick={onTaskRemove}
+          onClick={() => onTaskRemove(task)}
         >
           x
         </button>

@@ -1,18 +1,11 @@
-import { SyntheticEvent, useRef, useState } from 'react';
-import { useSubmit } from 'react-router-dom';
-import { useTasksContext } from '../../tasks-context';
+import { SyntheticEvent, useState } from 'react';
 
 interface Props {
-  collectionId: string;
+  create(l: string): void;
 }
 
-export function TaskForm() {
-  const { collectionId } = useTasksContext();
-
-
-  const submit = useSubmit();
+export function TaskForm({ create }: Props) {
   const [label, setLabel] = useState('');
-  const formRef = useRef<HTMLFormElement | null>(null);
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -21,15 +14,12 @@ export function TaskForm() {
       return;
     }
 
-    submit(formRef.current, {
-      method: 'post',
-      action: `/collections/${collectionId}`,
-    });
+    create(label);
     setLabel('');
   };
 
   return (
-    <form ref={formRef} className="task-form" onSubmit={onSubmit}>
+    <form className="task-form" onSubmit={onSubmit}>
       <input
         type="text"
         className="task-name"

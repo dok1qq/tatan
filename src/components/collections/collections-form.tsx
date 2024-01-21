@@ -1,27 +1,30 @@
-import { SyntheticEvent, useRef, useState } from 'react';
-import { Form, useSubmit } from 'react-router-dom';
+import { SyntheticEvent, useState } from 'react';
 
-export function CollectionsForm() {
-  const submit = useSubmit();
-  const formRef = useRef<HTMLFormElement | null>(null);
+interface Props {
+  create(name: string): void;
+}
 
+export function CollectionsForm({ create }: Props) {
   const [name, setName] = useState('');
 
-  const onSubmit = () => {
-    if (!formRef.current) return;
+  const onSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+
     if (name.length === 0) return;
 
-    submit(formRef.current, {
-      method: 'post',
-      action: '/',
-    });
+    create(name);
     setName('');
   };
 
   return (
-    <Form ref={formRef} className="collections-form" onSubmit={onSubmit}>
-      <input type="text" name="name" value={name} onChange={e => setName(e.target.value)} />
-      <button type="submit">Create</button>
-    </Form>
+    <form className="collections-form" onSubmit={onSubmit}>
+      <input
+        className="collections-name"
+        type="text" name="name"
+        value={name}
+        onChange={e => setName(e.target.value)}
+      />
+      <button type="submit">Create Collection</button>
+    </form>
   );
 }

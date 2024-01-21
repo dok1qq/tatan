@@ -52,6 +52,15 @@ html, body {
 
   --color-yellow-400: #FAC515;
   --color-yellow-900: #713B12;
+
+  --s0: 8px;
+  --s1: calc(var(--s0) * 2);
+  --s2: calc(var(--s0) * 3);
+  --s3: calc(var(--s0) * 4);
+  --s4: calc(var(--s0) * 5);
+  --s5: calc(var(--s0) * 6);
+  --s6: calc(var(--s0) * 7);
+  --s7: calc(var(--s0) * 8);
 }
 
 body[data-theme='light'] {
